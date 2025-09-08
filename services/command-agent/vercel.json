@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install --ignore-scripts",
   "builds": [
     {
       "src": "src/index.ts",
@@ -23,6 +25,5 @@
       "memory": 1024,
       "maxDuration": 30
     }
-  },
-  "installCommand": "npm install"
+  }
 }
