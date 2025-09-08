@@ -1,0 +1,89 @@
+version: "3.9"
+services:
+  redpanda:
+    image: redpandadata/redpanda:latest
+    command: [
+      "redpanda", "start",
+      "--overprovisioned",
+      "--smp", "1",
+      "--memory", "1G",
+      "--reserve-memory", "0M",
+      "--node-id", "0",
+      "--check=false",
+      "--kafka-addr", "internal://0.0.0.0:9092,external://0.0.0.0:19092",
+      "--advertise-kafka-addr", "internal://redpanda:9092,external://localhost:19092"
+    ]
+    ports:
+      - "19092:19092"  # Kafka external
+      - "9644:9644"    # Admin API
+    networks: [ devnet ]
+  postgres:
+    image: timescale/timescaledb:latest-pg16
+    environment:
+      POSTGRES_USER: swarm
+      POSTGRES_PASSWORD: swarm
+      POSTGRES_DB: swarm
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [ devnet ]
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    ports:
+      - "8123:8123"  # HTTP
+      - "9000:9000"  # Native
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - chdata:/var/lib/clickhouse
+    networks: [ devnet ]
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks: [ devnet ]
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    networks: [ devnet ]
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports:
+      - "9090:9090"
+    networks: [ devnet ]
+
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./observability/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./observability/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./observability/grafana/dashboards:/etc/grafana/dashboards:ro
+    networks: [ devnet ]
+
+volumes:
+  pgdata: {}
+  chdata: {}
+  qdrant_storage: {}
+
+networks:
+  devnet: {}

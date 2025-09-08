@@ -1,0 +1,27 @@
+{
+  "name": "@swarm/feature-store",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "lint": "eslint .",
+    "test": "vitest run --reporter=verbose"
+  },
+  "dependencies": {
+    "zod": "^3.23.8",
+    "pino": "^9.0.0",
+    "pg": "^8.12.0",
+    "prom-client": "^15.1.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsx": "^4.7.0",
+    "eslint": "^9.0.0",
+    "@types/node": "^20.11.30",
+    "vitest": "^1.6.0"
+  }
+}

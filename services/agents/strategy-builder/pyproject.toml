@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling>=1.21.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "strategy-builder"
+version = "0.1.0"
+description = "Strategy builder agent"
+authors = [{name = "Agentic Swarm", email = "eng@example.com"}]
+requires-python = ">=3.9"
+dependencies = [
+  "swarm-agent-sdk>=0.1.0",
+  "httpx>=0.27",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/strategy_builder"]

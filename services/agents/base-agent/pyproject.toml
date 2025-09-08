@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling>=1.21.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "base-agent"
+version = "0.1.0"
+description = "Base agent service for Agentic Trading Swarm"
+authors = [{name = "Agentic Swarm", email = "eng@example.com"}]
+requires-python = ">=3.9"
+dependencies = [
+  "swarm-agent-sdk>=0.1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/base_agent"]

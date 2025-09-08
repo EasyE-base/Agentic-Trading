@@ -1,0 +1,22 @@
+groups:
+  - name: service-health
+    interval: 15s
+    rules:
+      - alert: ServiceDown
+        expr: up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "{{ $labels.job }} is down"
+          description: "Target {{ $labels.instance }} for job {{ $labels.job }} has been down for >30s"
+
+      - alert: MCPHostErrorsHigh
+        expr: rate(mcp_host_errors_total[1m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MCP Host errors occurring"
+          description: "mcp_host_errors_total > 0 over the last minute"
+

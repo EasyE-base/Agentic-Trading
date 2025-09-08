@@ -1,0 +1,19 @@
+{
+  "name": "execution-agent",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@swarm/mcp-core": "*",
+    "@interfaces": "*",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsx": "^4.7.0"
+  }
+}
+

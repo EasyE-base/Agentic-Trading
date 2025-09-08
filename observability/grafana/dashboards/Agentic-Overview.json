@@ -1,0 +1,45 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "iteration": 165,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "MCP Host Errors (1m)",
+      "options": {"reduceOptions": {"calcs": ["last"], "fields": "", "values": false}},
+      "targets": [{"expr": "rate(mcp_host_errors_total[1m])", "legendFormat": "errors/s"}],
+      "gridPos": {"h": 6, "w": 8, "x": 0, "y": 0}
+    },
+    {
+      "type": "timeseries",
+      "title": "Service CPU (process_cpu_user_seconds_total)",
+      "targets": [{"expr": "sum by (job) (rate(process_cpu_user_seconds_total[1m]))"}],
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 6}
+    },
+    {
+      "type": "timeseries",
+      "title": "Exec Stats Writes by Symbol",
+      "targets": [{"expr": "sum by (symbol) (rate(exec_stats_written_total[5m]))"}],
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 14}
+    },
+    {
+      "type": "table",
+      "title": "Targets Health",
+      "targets": [{"expr": "up"}],
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 22}
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": ["agentic-swarm"],
+  "templating": {"list": []},
+  "time": {"from": "now-6h", "to": "now"},
+  "timezone": "",
+  "title": "Agentic Overview",
+  "uid": "agentic-overview",
+  "version": 1
+}
+

@@ -1,0 +1,69 @@
+## Feature: Normalize MCP host/agent ports via env (Unify 4000/4100)
+
+- [ ] Confirm standard dev MCP host URL/port (default `HOST_URL=http://localhost:4000`).
+- [ ] Create root env files: `.env` and `.env.local` with `HOST_URL`.
+- [ ] Ensure `services/mcp-host` honors `PORT` and document defaults; keep CLI using `HOST_URL`.
+- [ ] Update Python agents to read `HOST_URL` from env instead of hardcoded ports (base-agent, roundtrip, execution-agent, strategy-builder).
+- [ ] Optional: add small helper in `swarm_agent_sdk` to get `HOST_URL` (`get_host_base()`), used by agents.
+- [ ] Remove `4100` references in code and docs; standardize on `4000` for dev.
+- [ ] Add example env snippets in READMEs and quickstart.
+- [ ] Test: run MCP servers + host at `4000`, run agents (roundtrip, strategy, execution) successfully.
+- [ ] Lint/type-check changed files (TS/ESLint, Python where applicable).
+- [ ] Update architecture/README to reflect `HOST_URL` normalization.
+- [ ] Final cleanup: verify no lingering port mismatches, commit changes.
+
+- [ ] Planning
+  - [ ] Approve architecture and stack selection.
+  - [x] Create  with v1 design.
+  - [ ] Define target asset classes, venues, and brokers for phase 1.
+  - [ ] Establish legal/compliance requirements (restricted lists, reporting).
+- [ ] Repo and tooling
+  - [ ] Initialize mono-repo (pnpm workspaces) and top-level CI.
+  - [ ] Add Python toolchain (poetry or uv), Rust toolchain, Node LTS.
+  - [ ] Set up pre-commit, linters (ruff/flake8, eslint, clippy), formatters.
+- [ ] Infra (dev)
+  - [ ] docker-compose for Redpanda, Postgres/Timescale, ClickHouse, Redis, Qdrant, Grafana, Prometheus, Loki.
+  - [ ] Seed topics and schemas; provision DBs.
+- [ ] MCP servers
+  - [ ] market-data (historical + live adapters).
+  - [ ] feature-store (schema validation + versioning).
+  - [ ] nlp-sentiment (ETL + scorers + embeddings).
+  - [ ] backtester (vectorized engine + walk-forward).
+  - [ ] risk-engine (pre-trade/portfolio/stress).
+  - [ ] broker-gateway (sim + live broker API).
+  - [ ] vector-store (Qdrant/pgvector).
+  - [ ] policy-engine (constraints + attestations).
+  - [ ] telemetry (logs/metrics/traces).
+- [ ] Agents (services)
+  - [ ] Base Python agent SDK wrapper for MCP.
+  - [ ] Signal Agent (features -> alphas).
+  - [ ] Sentiment Agent (NLP -> scores).
+  - [ ] Trend Agent (regime/momentum).
+  - [ ] Strategy Builder (compose/tune/backtest).
+  - [ ] Risk Manager (limits/circuit breakers).
+  - [ ] Execution Agent (routing/TWAP/VWAP/POV).
+  - [ ] Portfolio & Evaluator (attribution/feedback).
+- [ ] Orchestration
+  - [ ] MCP host with policy enforcement and routing.
+  - [ ] Topic mapping and blackboard conventions.
+  - [ ] Identity, secrets, quotas.
+- [ ] UI
+  - [ ] Next.js app: Command Bar, Agent Canvas, Performance Dashboard.
+  - [ ] Live charts and traces; event subscriptions.
+- [ ] Testing
+  - [ ] Unit tests for servers and agents.
+  - [ ] Integration tests with docker-compose.
+  - [ ] Backtest harness and golden datasets.
+  - [ ] Shadow trading and canaries.
+- [ ] Observability & ops
+  - [ ] OpenTelemetry across stack; dashboards and alerts.
+  - [ ] Runbooks, SLOs, on-call policies.
+- [ ] Security & compliance
+  - [ ] Vault + least-privilege service accounts.
+  - [ ] Policy rules and audit trails wired to UI.
+- [ ] Documentation
+  - [ ] README, architecture docs, agent design docs.
+  - [ ] Data dictionary and schema registry.
+- [ ] Rollout
+  - [ ] Staging deploy, DR plan, cost guardrails.
+  - [ ] Prod canary, budget caps, kill switch tests.

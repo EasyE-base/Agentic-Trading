@@ -1,0 +1,29 @@
+# Node
+node_modules/
+dist/
+.turbo/
+.next/
+
+# Env
+.env*
+
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+.venv/
+*.pyc
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+node_modules
+dist
+.next
+.env
+.env.*
+*.log
