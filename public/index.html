@@ -3,33 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Trading Swarm</title>
+    <title>Agentic Trading Swarm - AI-Powered Trading Platform</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 2rem; max-width: 800px; margin: 0 auto; }
-        .status { background: #f0f9ff; border: 1px solid #0ea5e9; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        header { padding: 2rem 0; text-align: center; color: white; }
+        header h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem; }
+        
+        .hero { 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            padding: 3rem; 
+            margin: 2rem 0; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .status-card { 
+            background: linear-gradient(135deg, #6c5ce7, #74b9ff);
+            color: white; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .status-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .status-card .indicator { font-size: 3rem; margin-bottom: 1rem; }
+        .status-card a { color: #fff; text-decoration: none; font-weight: 600; }
+        .status-card a:hover { text-decoration: underline; }
+        
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .feature { 
+            background: #f8f9fa; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            text-align: center;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+        .feature:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature h3 { color: #2d3436; margin-bottom: 1rem; }
+        .feature p { color: #636e72; }
+        
+        .api-demo { 
+            background: #2d3436; 
+            color: #ddd; 
+            padding: 2rem; 
+            border-radius: 15px; 
+            margin: 2rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+        }
+        .api-demo h3 { color: #74b9ff; margin-bottom: 1rem; }
+        .api-demo code { 
+            display: block; 
+            background: #1e2126; 
+            padding: 1rem; 
+            border-radius: 8px; 
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .architecture { margin: 3rem 0; }
+        .architecture h2 { text-align: center; color: #2d3436; margin-bottom: 2rem; font-size: 2.5rem; }
+        .agents { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .agent { 
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white; 
+            padding: 1rem 2rem; 
+            border-radius: 25px; 
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        footer { 
+            background: rgba(45,52,54,0.9); 
+            color: white; 
+            text-align: center; 
+            padding: 2rem 0; 
+            margin-top: 3rem;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            .hero { padding: 2rem; }
+            .status-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <h1>🤖 Agentic Trading Swarm</h1>
-    <p>Your next-gen AI-powered trading platform with Neural Command Layer integration.</p>
-    
-    <div class="status">
-        <h3>✅ Status: Operational</h3>
-        <p><strong>Neural Command Layer:</strong> <a href="https://neural-command-layer-1.vercel.app/">Live API</a></p>
-        <p><strong>Repository:</strong> <a href="https://github.com/EasyE-base/Agentic-Trading">GitHub</a></p>
+    <div class="container">
+        <header>
+            <h1>🤖 Agentic Trading Swarm</h1>
+            <p>Next-Generation AI-Powered Trading Platform with Neural Command Layer</p>
+        </header>
+
+        <div class="hero">
+            <div class="status-grid">
+                <div class="status-card">
+                    <div class="indicator">🟢</div>
+                    <h3>Neural Command Layer</h3>
+                    <p>Natural language trading interface powered by Claude AI</p>
+                    <p><a href="https://neural-command-layer-1.vercel.app/" target="_blank">Live API →</a></p>
+                </div>
+                <div class="status-card">
+                    <div class="indicator">⚡</div>
+                    <h3>Agent Swarm</h3>
+                    <p>Multi-agent architecture with real-time market processing</p>
+                    <p><a href="https://github.com/EasyE-base/Agentic-Trading" target="_blank">GitHub →</a></p>
+                </div>
+            </div>
+
+            <div class="architecture">
+                <h2>🏗️ Agent Architecture</h2>
+                <div class="agents">
+                    <div class="agent">📊 Signal Agent</div>
+                    <div class="agent">💭 Sentiment Agent</div>
+                    <div class="agent">📈 Trend Agent</div>
+                    <div class="agent">🎯 Strategy Agent</div>
+                    <div class="agent">⚠️ Risk Agent</div>
+                    <div class="agent">🚀 Execution Agent</div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Natural Language Commands</h3>
+                    <p>Trade using plain English commands like "Buy $1000 worth of AAPL"</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📡</div>
+                    <h3>Real-time Market Data</h3>
+                    <p>Alpha Vantage, NewsAPI, and FRED integration for comprehensive market analysis</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Risk Management</h3>
+                    <p>Built-in risk engine with pre-trade checks and compliance monitoring</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Backtesting & Analytics</h3>
+                    <p>Historical strategy testing with performance metrics and analytics</p>
+                </div>
+            </div>
+
+            <div class="api-demo">
+                <h3>🚀 Try the Neural Command Layer API</h3>
+                <code># Buy Order Example
+curl -X POST https://neural-command-layer-1.vercel.app/api/command \
+  -H "Content-Type: application/json" \
+  -d '{"command": "Buy $1000 worth of AAPL with stop loss at $150"}'</code>
+
+                <code># Query Example  
+curl -X POST https://neural-command-layer-1.vercel.app/api/command \
+  -H "Content-Type: application/json" \
+  -d '{"command": "What is the sentiment on Tesla today?"}'</code>
+
+                <code># Status Check
+curl -X POST https://neural-command-layer-1.vercel.app/api/command \
+  -H "Content-Type: application/json" \
+  -d '{"command": "Show me my current positions"}'</code>
+            </div>
+        </div>
     </div>
 
-    <h2>🎯 Features</h2>
-    <ul>
-        <li>Natural Language Trading Commands</li>
-        <li>Multi-Agent Architecture (Signal, Sentiment, Trend, Strategy, Risk, Execution)</li>
-        <li>Real-time Market Data Integration</li>
-        <li>Risk Management & Compliance</li>
-        <li>Backtesting & Analytics</li>
-    </ul>
-
-    <h2>🚀 Usage</h2>
-    <p>Send natural language commands to the Neural Command Layer:</p>
-    <code>curl -X POST https://neural-command-layer-1.vercel.app/api/command -H "Content-Type: application/json" -d '{"command": "Buy $1000 worth of AAPL"}'</code>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Agentic Trading Swarm. Built with Claude AI and powered by MCP architecture.</p>
+            <p>🤖 <em>Generated with <a href="https://claude.ai/code" style="color: #74b9ff;">Claude Code</a></em></p>
+        </div>
+    </footer>
 </body>
 </html>
