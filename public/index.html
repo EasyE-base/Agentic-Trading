@@ -290,7 +290,10 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             const messagesDiv = document.getElementById('chat-messages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
-            messageDiv.textContent = content;
+            
+            // Handle multi-line content properly
+            messageDiv.innerHTML = content.replace(/\n/g, '<br>');
+            
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
@@ -299,19 +302,39 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             if (typeof response === 'string') return response;
             
             if (response.success === false) {
-                return `Error: ${response.error || 'Unknown error occurred'}`;
+                return `❌ ${response.message || response.error || 'Sorry, I encountered an error processing your request.'}`;
             }
             
-            if (response.result) {
-                let output = '';
-                if (response.result.intent) output += `Intent: ${response.result.intent}\n`;
-                if (response.result.entities?.symbol) output += `Symbol: ${response.result.entities.symbol}\n`;
-                if (response.result.entities?.amount) output += `Amount: $${response.result.entities.amount}\n`;
-                if (response.result.message) output += `Response: ${response.result.message}`;
-                return output || JSON.stringify(response.result, null, 2);
+            // Handle confirmation requests
+            if (response.data?.requiresConfirmation) {
+                const cmd = response.data.parsedCommand;
+                let msg = `💼 ${response.message}`;
+                
+                if (response.followUp) {
+                    msg += `\n\n${response.followUp}`;
+                }
+                
+                // Add context about what was parsed
+                if (cmd?.entities?.symbol) {
+                    const confidence = Math.round((cmd.confidence || 0) * 100);
+                    msg += `\n\n🎯 Detected: ${cmd.entities.symbol} (${confidence}% confidence)`;
+                }
+                
+                return msg;
             }
             
-            return JSON.stringify(response, null, 2);
+            // Handle successful execution
+            if (response.success && response.message) {
+                return `✅ ${response.message}`;
+            }
+            
+            // Handle query responses
+            if (response.result?.message) {
+                return `📊 ${response.result.message}`;
+            }
+            
+            // Fallback to the main message
+            return response.message || 'Command processed successfully.';
         }
 
         async function sendCommand() {
@@ -365,7 +388,7 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
 
         // Add welcome message
         window.addEventListener('load', function() {
-            addMessage('Welcome to the Neural Command Layer! Try commands like:\n• "Buy $1000 worth of AAPL"\n• "What is the sentiment on Tesla?"\n• "Show my positions"', 'bot');
+            addMessage('👋 Welcome to the Neural Command Layer!\n\nI can help you trade with natural language. Try saying:\n• "Buy $1000 worth of AAPL"\n• "What is the sentiment on Tesla?"\n• "Show my positions"\n• "Buy SPY"\n\nJust type your command below!', 'bot');
         });
     </script>
 </body>
