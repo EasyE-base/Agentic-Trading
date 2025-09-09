@@ -58,6 +58,87 @@
         .feature h3 { color: #2d3436; margin-bottom: 1rem; }
         .feature p { color: #636e72; }
         
+        .chat-container {
+            background: #2d3436;
+            color: #ddd;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+        .chat-container h3 { color: #74b9ff; margin-bottom: 1rem; }
+        .chat-box {
+            background: #1e2126;
+            border-radius: 10px;
+            padding: 1rem;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+        #chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: #24272c;
+        }
+        .message {
+            margin: 0.5rem 0;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        .user-message {
+            background: #74b9ff;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+            text-align: right;
+        }
+        .bot-message {
+            background: #00b894;
+            color: white;
+            align-self: flex-start;
+        }
+        .error-message {
+            background: #e74c3c;
+            color: white;
+            align-self: flex-start;
+        }
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+        #command-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: #636e72;
+            color: white;
+            font-size: 1rem;
+        }
+        #command-input::placeholder {
+            color: #b2bec3;
+        }
+        .chat-input button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: #74b9ff;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .chat-input button:hover {
+            background: #0984e3;
+        }
+        .chat-input button:disabled {
+            background: #636e72;
+            cursor: not-allowed;
+        }
+        
         .api-demo { 
             background: #2d3436; 
             color: #ddd; 
@@ -164,8 +245,19 @@
                 </div>
             </div>
 
+            <div class="chat-container">
+                <h3>🚀 Try the Neural Command Layer</h3>
+                <div class="chat-box">
+                    <div id="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="command-input" placeholder="Try: Buy $1000 worth of AAPL" />
+                        <button onclick="sendCommand()">Send</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="api-demo">
-                <h3>🚀 Try the Neural Command Layer API</h3>
+                <h3>📡 API Examples</h3>
                 <code># Buy Order Example
 curl -X POST https://neural-command-layer-1.vercel.app/api/command \
   -H "Content-Type: application/json" \
@@ -190,5 +282,91 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             <p>🤖 <em>Generated with <a href="https://claude.ai/code" style="color: #74b9ff;">Claude Code</a></em></p>
         </div>
     </footer>
+
+    <script>
+        let isWaiting = false;
+
+        function addMessage(content, type = 'bot') {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}-message`;
+            messageDiv.textContent = content;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function formatResponse(response) {
+            if (typeof response === 'string') return response;
+            
+            if (response.success === false) {
+                return `Error: ${response.error || 'Unknown error occurred'}`;
+            }
+            
+            if (response.result) {
+                let output = '';
+                if (response.result.intent) output += `Intent: ${response.result.intent}\n`;
+                if (response.result.entities?.symbol) output += `Symbol: ${response.result.entities.symbol}\n`;
+                if (response.result.entities?.amount) output += `Amount: $${response.result.entities.amount}\n`;
+                if (response.result.message) output += `Response: ${response.result.message}`;
+                return output || JSON.stringify(response.result, null, 2);
+            }
+            
+            return JSON.stringify(response, null, 2);
+        }
+
+        async function sendCommand() {
+            const input = document.getElementById('command-input');
+            const button = document.querySelector('.chat-input button');
+            const command = input.value.trim();
+            
+            if (!command || isWaiting) return;
+            
+            // Add user message
+            addMessage(command, 'user');
+            input.value = '';
+            
+            // Set waiting state
+            isWaiting = true;
+            button.disabled = true;
+            button.textContent = 'Sending...';
+            
+            try {
+                const response = await fetch('https://neural-command-layer-1.vercel.app/api/command', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ command })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    addMessage(`Error ${response.status}: ${data.message || 'Request failed'}`, 'error');
+                } else {
+                    addMessage(formatResponse(data), 'bot');
+                }
+            } catch (error) {
+                addMessage(`Connection error: ${error.message}`, 'error');
+            } finally {
+                // Reset waiting state
+                isWaiting = false;
+                button.disabled = false;
+                button.textContent = 'Send';
+            }
+        }
+
+        // Handle Enter key press
+        document.getElementById('command-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !isWaiting) {
+                sendCommand();
+            }
+        });
+
+        // Add welcome message
+        window.addEventListener('load', function() {
+            addMessage('Welcome to the Neural Command Layer! Try commands like:\n• "Buy $1000 worth of AAPL"\n• "What is the sentiment on Tesla?"\n• "Show my positions"', 'bot');
+        });
+    </script>
 </body>
 </html>
