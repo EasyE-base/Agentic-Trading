@@ -3,283 +3,691 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agentic Trading Swarm - AI-Powered Trading Platform</title>
+    <title>Agentic Trading Swarm - Institutional AI Trading Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-tertiary: #666666;
+            --accent-gold: #E2C06D;
+            --accent-green: #00C853;
+            --accent-red: #FF4444;
+            --accent-blue: #2196F3;
+            --border: #222222;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --glow: rgba(226, 192, 109, 0.3);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
         
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 400;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            background: var(--bg-primary);
             min-height: 100vh;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        
-        header { padding: 2rem 0; text-align: center; color: white; }
-        header h1 { font-size: 3.5rem; font-weight: 700; margin-bottom: 1rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
-        header p { font-size: 1.3rem; opacity: 0.9; margin-bottom: 2rem; }
-        
-        .hero { 
-            background: rgba(255,255,255,0.95); 
-            border-radius: 20px; 
-            padding: 3rem; 
-            margin: 2rem 0; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+        .container { 
+            max-width: 1560px; 
+            margin: 0 auto; 
+            padding: 0 90px; 
         }
         
-        .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 2rem 0; }
-        .status-card { 
-            background: linear-gradient(135deg, #6c5ce7, #74b9ff);
-            color: white; 
-            padding: 2rem; 
-            border-radius: 15px; 
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 90px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
         }
-        .status-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-        .status-card .indicator { font-size: 3rem; margin-bottom: 1rem; }
-        .status-card a { color: #fff; text-decoration: none; font-weight: 600; }
-        .status-card a:hover { text-decoration: underline; }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: radial-gradient(ellipse at center, var(--glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
         
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0; }
-        .feature { 
-            background: #f8f9fa; 
-            padding: 2rem; 
-            border-radius: 15px; 
+        .hero-title {
+            font-size: 65px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .accent {
+            color: var(--accent-gold);
+            text-shadow: 0 0 40px var(--glow);
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Status Section */
+        .status-section {
+            padding: 90px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-header {
             text-align: center;
-            border: 1px solid #e9ecef;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-description {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 90px;
+        }
+
+        .status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 60px 50px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .status-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .status-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px var(--shadow);
+        }
+
+        .status-indicator {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        .status-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .status-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .status-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--accent-gold);
+            font-weight: 500;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .status-link:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 20px var(--glow);
+        }
+
+        .status-link::after {
+            content: '→';
+            margin-left: 8px;
             transition: transform 0.3s ease;
         }
-        .feature:hover { transform: translateY(-5px); }
-        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
-        .feature h3 { color: #2d3436; margin-bottom: 1rem; }
-        .feature p { color: #636e72; }
-        
-        .chat-container {
-            background: #2d3436;
-            color: #ddd;
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
+
+        .status-link:hover::after {
+            transform: translateX(4px);
         }
-        .chat-container h3 { color: #74b9ff; margin-bottom: 1rem; }
+
+        /* Agent Architecture */
+        .agents-section {
+            padding: 90px 0;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .agent-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 40px var(--glow);
+        }
+
+        .agent-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .agent-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .agent-role {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Trading Interface */
+        .interface-section {
+            padding: 90px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .interface-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .chat-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 32px 40px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .chat-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .chat-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
         .chat-box {
-            background: #1e2126;
-            border-radius: 10px;
-            padding: 1rem;
-            height: 400px;
+            height: 500px;
             display: flex;
             flex-direction: column;
         }
+
         #chat-messages {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            border-radius: 8px;
-            background: #24272c;
+            padding: 32px 40px;
+            background: var(--bg-card);
         }
+
         .message {
-            margin: 0.5rem 0;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            max-width: 80%;
-        }
-        .user-message {
-            background: #74b9ff;
-            color: white;
-            align-self: flex-end;
-            margin-left: auto;
-            text-align: right;
-        }
-        .bot-message {
-            background: #00b894;
-            color: white;
-            align-self: flex-start;
-        }
-        .error-message {
-            background: #e74c3c;
-            color: white;
-            align-self: flex-start;
-        }
-        .chat-input {
-            display: flex;
-            gap: 0.5rem;
-        }
-        #command-input {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 8px;
-            background: #636e72;
-            color: white;
-            font-size: 1rem;
-        }
-        #command-input::placeholder {
-            color: #b2bec3;
-        }
-        .chat-input button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            background: #74b9ff;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        .chat-input button:hover {
-            background: #0984e3;
-        }
-        .chat-input button:disabled {
-            background: #636e72;
-            cursor: not-allowed;
-        }
-        
-        .api-demo { 
-            background: #2d3436; 
-            color: #ddd; 
-            padding: 2rem; 
-            border-radius: 15px; 
-            margin: 2rem 0;
-            font-family: 'Monaco', 'Menlo', monospace;
-            overflow-x: auto;
-        }
-        .api-demo h3 { color: #74b9ff; margin-bottom: 1rem; }
-        .api-demo code { 
-            display: block; 
-            background: #1e2126; 
-            padding: 1rem; 
-            border-radius: 8px; 
-            margin: 1rem 0;
-            font-size: 0.9rem;
+            margin: 20px 0;
+            padding: 16px 24px;
+            max-width: 75%;
+            font-size: 15px;
             line-height: 1.5;
         }
-        
-        .architecture { margin: 3rem 0; }
-        .architecture h2 { text-align: center; color: #2d3436; margin-bottom: 2rem; font-size: 2.5rem; }
-        .agents { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-        .agent { 
-            background: linear-gradient(135deg, #00b894, #00cec9);
-            color: white; 
-            padding: 1rem 2rem; 
-            border-radius: 25px; 
+
+        .user-message {
+            background: var(--accent-blue);
+            color: white;
+            margin-left: auto;
+            border-radius: 20px 20px 4px 20px;
+        }
+
+        .bot-message {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 20px 20px 20px 4px;
+        }
+
+        .error-message {
+            background: var(--accent-red);
+            color: white;
+            border-radius: 20px 20px 20px 4px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 32px 40px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+            gap: 16px;
+        }
+
+        #command-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 16px;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #command-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 2px var(--glow);
+        }
+
+        #command-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .send-button {
+            padding: 16px 32px;
+            border: none;
+            background: var(--accent-gold);
+            color: var(--bg-primary);
             font-weight: 600;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
-        
-        footer { 
-            background: rgba(45,52,54,0.9); 
-            color: white; 
-            text-align: center; 
-            padding: 2rem 0; 
-            margin-top: 3rem;
-            border-radius: 20px 20px 0 0;
+
+        .send-button:hover:not(:disabled) {
+            background: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px var(--shadow);
         }
-        
+
+        .send-button:disabled {
+            background: var(--text-tertiary);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Technical Specs */
+        .specs-section {
+            padding: 90px 0;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .spec-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 40px;
+        }
+
+        .spec-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+        }
+
+        .spec-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .code-block {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 90px 0 60px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            background: var(--bg-primary);
+        }
+
+        .footer-content {
+            color: var(--text-tertiary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-link {
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 60px;
+            }
+        }
+
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .hero { padding: 2rem; }
-            .status-grid { grid-template-columns: 1fr; }
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .section-title {
+                font-size: 36px;
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .agents-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+
+            #chat-messages {
+                padding: 20px;
+            }
+
+            .chat-input {
+                padding: 20px;
+            }
+        }
+
+        /* Scrollbar Styling */
+        #chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chat-messages::-webkit-scrollbar-track {
+            background: var(--bg-card);
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        #chat-messages::-webkit-scrollbar-thumb:hover {
+            background: var(--text-tertiary);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>🤖 Agentic Trading Swarm</h1>
-            <p>Next-Generation AI-Powered Trading Platform with Neural Command Layer</p>
-        </header>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">
+                <span class="accent">AGENTIC</span><br>
+                TRADING SWARM
+            </h1>
+            <p class="hero-subtitle">
+                Institutional-grade AI trading platform powered by a swarm of specialized agents. 
+                Execute complex trading strategies through natural language commands.
+            </p>
+        </section>
 
-        <div class="hero">
+        <!-- Status Section -->
+        <section class="status-section">
+            <div class="section-header">
+                <h2 class="section-title">Platform Status</h2>
+                <p class="section-description">
+                    Real-time operational status of our neural command layer and agent swarm infrastructure
+                </p>
+            </div>
+            
             <div class="status-grid">
                 <div class="status-card">
-                    <div class="indicator">🟢</div>
-                    <h3>Neural Command Layer</h3>
-                    <p>Natural language trading interface powered by Claude AI</p>
-                    <p><a href="https://neural-command-layer-1.vercel.app/" target="_blank">Live API →</a></p>
+                    <div class="status-indicator">⚡</div>
+                    <h3 class="status-title">Neural Command Layer</h3>
+                    <p class="status-description">
+                        Advanced natural language processing interface powered by Claude AI. 
+                        Convert spoken commands into precise trading instructions.
+                    </p>
+                    <a href="https://neural-command-layer-1.vercel.app/" target="_blank" class="status-link">
+                        Live API Interface
+                    </a>
                 </div>
+                
                 <div class="status-card">
-                    <div class="indicator">⚡</div>
-                    <h3>Agent Swarm</h3>
-                    <p>Multi-agent architecture with real-time market processing</p>
-                    <p><a href="https://github.com/EasyE-base/Agentic-Trading" target="_blank">GitHub →</a></p>
+                    <div class="status-indicator">🤖</div>
+                    <h3 class="status-title">Agent Swarm Network</h3>
+                    <p class="status-description">
+                        Multi-agent architecture with 7 specialized AI agents providing real-time 
+                        market analysis, risk assessment, and execution coordination.
+                    </p>
+                    <a href="https://github.com/EasyE-base/Agentic-Trading" target="_blank" class="status-link">
+                        Open Source Repository
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <div class="architecture">
-                <h2>🏗️ Agent Architecture</h2>
-                <div class="agents">
-                    <div class="agent">📊 Signal Agent</div>
-                    <div class="agent">💭 Sentiment Agent</div>
-                    <div class="agent">📈 Trend Agent</div>
-                    <div class="agent">🎯 Strategy Agent</div>
-                    <div class="agent">⚠️ Risk Agent</div>
-                    <div class="agent">🚀 Execution Agent</div>
+        <!-- Agent Architecture -->
+        <section class="agents-section">
+            <div class="section-header">
+                <h2 class="section-title">Agent Architecture</h2>
+                <p class="section-description">
+                    Seven specialized AI agents working in coordination to provide comprehensive trading intelligence
+                </p>
+            </div>
+            
+            <div class="agents-grid">
+                <div class="agent-card">
+                    <div class="agent-icon">🟠</div>
+                    <div class="agent-name">Blip</div>
+                    <div class="agent-role">Signal Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">🔵</div>
+                    <div class="agent-name">Gilly</div>
+                    <div class="agent-role">Sentiment Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">🟢</div>
+                    <div class="agent-name">Margo</div>
+                    <div class="agent-role">Trend Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">🟣</div>
+                    <div class="agent-name">Aqua</div>
+                    <div class="agent-role">Strategy Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">⚪</div>
+                    <div class="agent-name">Sheldon</div>
+                    <div class="agent-role">Risk Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">⚫</div>
+                    <div class="agent-name">Tank</div>
+                    <div class="agent-role">Execution Agent</div>
+                </div>
+                <div class="agent-card">
+                    <div class="agent-icon">🤍</div>
+                    <div class="agent-name">Reflecta</div>
+                    <div class="agent-role">Analytics Agent</div>
                 </div>
             </div>
+        </section>
 
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Natural Language Commands</h3>
-                    <p>Trade using plain English commands like "Buy $1000 worth of AAPL"</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">📡</div>
-                    <h3>Real-time Market Data</h3>
-                    <p>Alpha Vantage, NewsAPI, and FRED integration for comprehensive market analysis</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🛡️</div>
-                    <h3>Risk Management</h3>
-                    <p>Built-in risk engine with pre-trade checks and compliance monitoring</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🔄</div>
-                    <h3>Backtesting & Analytics</h3>
-                    <p>Historical strategy testing with performance metrics and analytics</p>
-                </div>
+        <!-- Trading Interface -->
+        <section class="interface-section">
+            <div class="section-header">
+                <h2 class="section-title">Neural Command Interface</h2>
+                <p class="section-description">
+                    Interact with the agent swarm using natural language commands
+                </p>
             </div>
-
-            <div class="chat-container">
-                <h3>🚀 Try the Neural Command Layer</h3>
-                <div class="chat-box">
-                    <div id="chat-messages"></div>
-                    <div class="chat-input">
-                        <input type="text" id="command-input" placeholder="Try: Buy $1000 worth of AAPL" />
-                        <button onclick="sendCommand()">Send</button>
+            
+            <div class="interface-container">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-title">Command Terminal</div>
+                        <div class="chat-subtitle">All 7 agents are online and ready for instructions</div>
+                    </div>
+                    <div class="chat-box">
+                        <div id="chat-messages"></div>
+                        <div class="chat-input">
+                            <input type="text" id="command-input" placeholder="Enter trading command... (e.g., 'Buy $1000 worth of AAPL')" />
+                            <button class="send-button" onclick="sendCommand()">Execute</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="api-demo">
-                <h3>📡 API Examples</h3>
-                <code># Buy Order Example
-curl -X POST https://neural-command-layer-1.vercel.app/api/command \
-  -H "Content-Type: application/json" \
-  -d '{"command": "Buy $1000 worth of AAPL with stop loss at $150"}'</code>
-
-                <code># Query Example  
-curl -X POST https://neural-command-layer-1.vercel.app/api/command \
-  -H "Content-Type: application/json" \
-  -d '{"command": "What is the sentiment on Tesla today?"}'</code>
-
-                <code># Status Check
-curl -X POST https://neural-command-layer-1.vercel.app/api/command \
-  -H "Content-Type: application/json" \
-  -d '{"command": "Show me my current positions"}'</code>
+        <!-- Technical Specifications -->
+        <section class="specs-section">
+            <div class="section-header">
+                <h2 class="section-title">Technical Specifications</h2>
+                <p class="section-description">
+                    Enterprise-grade infrastructure and API specifications
+                </p>
             </div>
-        </div>
+            
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <h3 class="spec-title">Real-time Market Data</h3>
+                    <p class="spec-description">
+                        Direct integration with Alpha Vantage, NewsAPI, and FRED for comprehensive 
+                        market data aggregation and analysis.
+                    </p>
+                </div>
+                
+                <div class="spec-item">
+                    <h3 class="spec-title">Risk Management Engine</h3>
+                    <p class="spec-description">
+                        Advanced pre-trade risk checks, position limits, and compliance monitoring 
+                        with real-time breach detection.
+                    </p>
+                </div>
+                
+                <div class="spec-item">
+                    <h3 class="spec-title">Natural Language Processing</h3>
+                    <p class="spec-description">
+                        Claude AI-powered command parsing with intent recognition, entity extraction, 
+                        and context-aware trade execution.
+                    </p>
+                    <div class="code-block">
+curl -X POST https://neural-command-layer-1.vercel.app/api/command \
+  -H "Content-Type: application/json" \
+  -d '{"command": "Buy $5000 of TSLA with 5% stop loss"}'</div>
+                </div>
+                
+                <div class="spec-item">
+                    <h3 class="spec-title">Backtesting Framework</h3>
+                    <p class="spec-description">
+                        Historical strategy validation with performance metrics, drawdown analysis, 
+                        and risk-adjusted returns calculation.
+                    </p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Agentic Trading Swarm. Built with Claude AI and powered by MCP architecture.</p>
-            <p>🤖 <em>Generated with <a href="https://claude.ai/code" style="color: #74b9ff;">Claude Code</a></em></p>
+            <div class="footer-content">
+                <p>&copy; 2024 Agentic Trading Swarm. Institutional AI Trading Platform.</p>
+                <p>Built with Claude AI • Powered by MCP Architecture • 
+                   <a href="https://claude.ai/code" class="footer-link">Generated with Claude Code</a>
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -291,8 +699,7 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}-message`;
             
-            // Handle multi-line content properly
-            messageDiv.innerHTML = content.replace(/\n/g, '<br>');
+            messageDiv.innerHTML = content.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
             
             messagesDiv.appendChild(messageDiv);
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -302,10 +709,9 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             if (typeof response === 'string') return response;
             
             if (response.success === false) {
-                return `❌ ${response.message || response.error || 'Sorry, I encountered an error processing your request.'}`;
+                return `❌ ${response.message || response.error || 'Error processing request'}`;
             }
             
-            // Handle confirmation requests
             if (response.data?.requiresConfirmation) {
                 const cmd = response.data.parsedCommand;
                 let msg = `💼 ${response.message}`;
@@ -314,7 +720,6 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
                     msg += `\n\n${response.followUp}`;
                 }
                 
-                // Add context about what was parsed
                 if (cmd?.entities?.symbol) {
                     const confidence = Math.round((cmd.confidence || 0) * 100);
                     msg += `\n\n🎯 Detected: ${cmd.entities.symbol} (${confidence}% confidence)`;
@@ -323,35 +728,30 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
                 return msg;
             }
             
-            // Handle successful execution
             if (response.success && response.message) {
                 return `✅ ${response.message}`;
             }
             
-            // Handle query responses
             if (response.result?.message) {
                 return `📊 ${response.result.message}`;
             }
             
-            // Fallback to the main message
             return response.message || 'Command processed successfully.';
         }
 
         async function sendCommand() {
             const input = document.getElementById('command-input');
-            const button = document.querySelector('.chat-input button');
+            const button = document.querySelector('.send-button');
             const command = input.value.trim();
             
             if (!command || isWaiting) return;
             
-            // Add user message
             addMessage(command, 'user');
             input.value = '';
             
-            // Set waiting state
             isWaiting = true;
             button.disabled = true;
-            button.textContent = 'Sending...';
+            button.textContent = 'Processing...';
             
             try {
                 const response = await fetch('https://neural-command-layer-1.vercel.app/api/command', {
@@ -372,10 +772,9 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
             } catch (error) {
                 addMessage(`Connection error: ${error.message}`, 'error');
             } finally {
-                // Reset waiting state
                 isWaiting = false;
                 button.disabled = false;
-                button.textContent = 'Send';
+                button.textContent = 'Execute';
             }
         }
 
@@ -388,7 +787,16 @@ curl -X POST https://neural-command-layer-1.vercel.app/api/command \
 
         // Add welcome message
         window.addEventListener('load', function() {
-            addMessage('👋 Welcome to the Neural Command Layer!\n\nI can help you trade with natural language. Try saying:\n• "Buy $1000 worth of AAPL"\n• "What is the sentiment on Tesla?"\n• "Show my positions"\n• "Buy SPY"\n\nJust type your command below!', 'bot');
+            addMessage(`🤖 **Agentic Trading Swarm Online**
+
+All 7 specialized agents are active and ready for commands:
+
+• **Market Analysis**: "What's the sentiment on AAPL?"
+• **Trade Execution**: "Buy $1000 worth of SPY"  
+• **Portfolio Status**: "Show my current positions"
+• **Risk Assessment**: "What's my portfolio risk?"
+
+The agent swarm will analyze each command and provide comprehensive insights before execution.`, 'bot');
         });
     </script>
 </body>
