@@ -1,6 +1,10 @@
 {
   "version": 2,
-  "installCommand": "npm install",
-  "buildCommand": "echo 'No build step needed'",
-  "outputDirectory": "public"
+  "functions": {},
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
+  ]
 }
