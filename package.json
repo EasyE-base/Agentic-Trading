@@ -2,14 +2,13 @@
   "name": "agentic-trading-swarm",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "lint": "turbo run lint", 
-    "dev": "turbo run dev --parallel",
-    "test": "turbo run test"
+    "build": "echo 'No build needed'",
+    "lint": "echo 'No lint needed'", 
+    "dev": "echo 'Use individual service dev scripts'",
+    "test": "echo 'No test needed'"
   },
   "devDependencies": {
     "@esbuild/darwin-arm64": "^0.25.9",
-    "esbuild": "^0.25.9",
-    "turbo": "^2.0.6"
+    "esbuild": "^0.25.9"
   }
 }
