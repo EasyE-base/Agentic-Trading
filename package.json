@@ -6,9 +6,5 @@
     "lint": "echo 'No lint needed'", 
     "dev": "echo 'Use individual service dev scripts'",
     "test": "echo 'No test needed'"
-  },
-  "devDependencies": {
-    "@esbuild/darwin-arm64": "^0.25.9",
-    "esbuild": "^0.25.9"
   }
 }
