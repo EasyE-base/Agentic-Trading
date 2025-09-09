@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@swarm/mcp-core": "*",
-    "@interfaces": "*",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
